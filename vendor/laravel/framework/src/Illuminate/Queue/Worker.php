@@ -203,7 +203,7 @@ class Worker
             $this->raiseBeforeJobEvent($connectionName, $job);
 
             $this->markJobAsFailedIfAlreadyExceedsMaxAttempts(
-                $connectionName, $job, $options->maxTries
+                $connectionName, $job, (int) $options->maxTries
             );
 
             // Here we will fire off the job and let it process. We will catch any exceptions so
@@ -239,7 +239,7 @@ class Worker
         // another listener (or this same one). We will re-throw this exception after.
         try {
             $this->markJobAsFailedIfHasExceededMaxAttempts(
-                $connectionName, $job, $options->maxTries, $e
+                $connectionName, $job, (int) $options->maxTries, $e
             );
 
             $this->raiseExceptionOccurredJobEvent(
